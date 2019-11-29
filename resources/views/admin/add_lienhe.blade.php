@@ -21,6 +21,9 @@
                               <div class="form-group">
                                     <label for="exampleInputPassword1">Thông tin liên hệ </label>
                                     <textarea style="resize: none" rows="8" class="form-control" name="lienhe_noidung" id="exampleInputPassword1" placeholder="Mô tả sản phẩm">{{$lh->lienhe_noidung}}</textarea>
+                                    <script>
+                                        CKEDITOR.replace( 'lienhe_noidung' );
+                                    </script>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Link nhúng website</label>

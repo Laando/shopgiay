@@ -27,6 +27,9 @@
                                     <label for="exampleInputEmail1">Nội dung</label>
                                     <textarea style="resize: none" rows="8" type="text" name="slider_noidung" class="form-control" id="exampleInputEmail1" placeholder="Tên danh mục" >{{$slider->slider_noidung}}
                                      </textarea> 
+                                    <script>
+                                        CKEDITOR.replace( 'slider_noidung' );
+                                    </script>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Hình ảnh sản phẩm</label>

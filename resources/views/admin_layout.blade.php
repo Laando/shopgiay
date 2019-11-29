@@ -27,6 +27,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="{{asset('public/backend/js/raphael-min.js')}}"></script>
 <script src="{{asset('public/backend/js/morris.js')}}"></script>
     
+<script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
 
 <!-- <script src="{{asset('public/backend/js/tinymce.min.js')}}" referrerpolicy="origin"></script>
   <script>tinymce.init({selector:'textarea'});</script> -->

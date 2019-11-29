@@ -39,10 +39,16 @@
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Mô tả sản phẩm</label>
                                     <textarea style="resize: none" rows="8" class="form-control" name="product_desc" id="exampleInputPassword1">{{$pro->product_desc}}</textarea>
+                                    <script>
+                                        CKEDITOR.replace( 'product_desc' );
+                                    </script>
                                 </div>
                                  <div class="form-group">
                                     <label for="exampleInputPassword1">Nội dung sản phẩm</label>
                                     <textarea style="resize: none" rows="8" class="form-control" name="product_content" id="exampleInputPassword1" >{{$pro->product_content}}</textarea>
+                                    <script>
+                                        CKEDITOR.replace( 'product_content' );
+                                    </script>
                                 </div>
                                  <div class="form-group">
                                     <label for="exampleInputPassword1">Danh mục sản phẩm</label>
@@ -73,8 +79,8 @@
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Hiển thị</label>
                                       <select name="product_status" class="form-control input-sm m-bot15">
-                                            <option value="0">Ẩn</option>
-                                            <option value="1">Hiển thị</option>
+                                            <option value="1">Ẩn</option>
+                                            <option value="0">Hiển thị</option>
                                             
                                     </select>
                                 </div>
