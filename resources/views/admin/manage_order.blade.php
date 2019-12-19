@@ -43,6 +43,7 @@
               </label>
             </th>
             <th>Tên người đặt</th>
+            <th>Mặt hàng</th>
             <th>Tổng giá tiền</th>
             <th>Tình trạng</th> 
             <th>nút xác nhan</th>
@@ -55,10 +56,11 @@
           @foreach($all_order as $key => $order)
           <tr>
             <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-            <td>{{ $order->customer_name }}</td>
-            <td>{{ $order->order_total }}</td>
+            <td>{{ $order['user_name'] }}</td>
+            <td>{{ $order['count_product'] }}</td>
+            <td>{{ $order['user_total'] }}</td>
             <?php 
-              if( $order->order_status == 0){
+              if( $order['order_status'] == 0){
              ?>
               <td><?php  echo "Đang xử lý !"; ?></td>
             <?php 
@@ -70,13 +72,13 @@
               ?>
               <td><span class="text-ellipsis">
               <?php
-               if($order->order_status==0){
+               if($order['order_status']==0){
                 ?>
-                <a href="{{URL::to('/active-order/'.$order->order_id)}}"><span class="fa-thumb-styling fa fa-thumbs-down"></span></a>
+                <a href="{{URL::to('/active-order/'.$order['order_id'])}}"><span class="fa-thumb-styling fa fa-thumbs-down"></span></a>
                 <?php
                  }else{
                 ?>
-                <a href="{{URL::to('/unactive-order/'.$order->order_id)}}"><span class="fa-thumb-styling fa fa-thumbs-up"></span></a>  
+                <a href="{{URL::to('/unactive-order/'.$order['order_id'])}}"><span class="fa-thumb-styling fa fa-thumbs-up"></span></a>  
                  
                 <?php
                }
@@ -84,18 +86,18 @@
             </span></td>
            
             <td>
-              <a href="{{URL::to('/view-order/'.$order->order_id)}}" class="active styling-edit" ui-toggle-class="">
+              <a href="{{URL::to('/view-order/'.$order['order_id'])}}" class="active styling-edit" ui-toggle-class="">
                 <i class="fa fa-pencil-square-o text-success text-active"></i></a>
                 <?php 
-                  if($order->order_status==0){
+                  if($order['order_status']==0){
                  ?>
                     <a onclick="return confirm('Hóa đơn chưa được xử lý !!!')" href="" class="active styling-edit" ui-toggle-class="">
                       <i class="fa fa-times text-danger text"></i>
                     </a>
                   <?php 
-                    }else if($order->order_status==1){
+                    }else if($order['order_status']==1){
                   ?>
-                       <a onclick="return confirm('Hóa đơn đã xử lý !Bạn có chắc là muốn xóa đơn hàng không?')" href="{{URL::to('/delete-order/'.$order->order_id)}}" class="active styling-edit" ui-toggle-class="">
+                       <a onclick="return confirm('Hóa đơn đã xử lý !Bạn có chắc là muốn xóa đơn hàng không?')" href="{{URL::to('/delete-order/'.$order['order_id'])}}" class="active styling-edit" ui-toggle-class="">
                                   <i class="fa fa-times text-danger text"></i>
                       </a>
                   <?php 

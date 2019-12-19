@@ -145,13 +145,36 @@ class CheckoutController extends Controller
     public function manage_order(){
         
         $this->AuthLogin();
-        $all_order = DB::table('tbl_order')
-        ->join('tbl_customers','tbl_order.customer_id','=','tbl_customers.customer_id')
-        ->select('tbl_order.*','tbl_customers.customer_name')
-        ->orderby('tbl_order.order_id','desc')->get();
-        $manager_order  = view('admin.manage_order')->with('all_order',$all_order);
+        $all_order = (DB::table('tbl_order')
+                ->join('tbl_customers','tbl_order.customer_id','=','tbl_customers.customer_id')
+                ->join('tbl_order_details','tbl_order.order_id','=','tbl_order_details.order_id')
+                ->select('tbl_order.*','tbl_customers.customer_name','tbl_order_details.product_name','tbl_order_details.product_sales_quantity')
+                ->orderby('tbl_order.order_id','desc')->get())->toArray();
+
+        $user_order = array();
+        foreach ($all_order as $key => $value) {
+            if(in_array($value->order_id,array_column(($user_order),"order_id"))){
+                $keyOrderInArray = array_search($value->order_id, array_column($user_order,"order_id"));
+                $user_order[$keyOrderInArray]['product_name'] .= ", ".$value->product_name;
+                $user_order[$keyOrderInArray]['count_product'] .= ", ".$value->product_name.' x '.$value->product_sales_quantity;
+
+            }else{
+                $user_order_new = [
+                'order_id'  => $value->order_id,
+                'user_name' => $value->customer_name,
+                'user_total' => $value->order_total,
+                'product_name' => $value->product_name,
+                'order_status' => $value->order_status,
+                'count_product' => $value->product_name.' x '.$value->product_sales_quantity];
+                $user_order[] = $user_order_new;
+
+            }
+        }
+
+        $manager_order  = view('admin.manage_order')->with('all_order',$user_order);
         return view('admin_layout')->with('admin.manage_order', $manager_order);
     }
+
     public function order_place(Request $request){
         //insert payment_method
      
