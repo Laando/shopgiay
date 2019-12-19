@@ -23,62 +23,63 @@ class CheckoutController extends Controller
     }
     public function view_order($orderId){
         $this->AuthLogin();
-        $order_by_id = DB::table('tbl_order')
+        $all_order = DB::table('tbl_order')
         ->join('tbl_customers','tbl_order.customer_id','=','tbl_customers.customer_id')
         ->join('tbl_shipping','tbl_order.shipping_id','=','tbl_shipping.shipping_id')
         ->join('tbl_order_details','tbl_order.order_id','=','tbl_order_details.order_id')
-        ->select('tbl_order.*','tbl_customers.*','tbl_shipping.*','tbl_order_details.*')->where('tbl_order.order_id',$orderId)->first();
+        ->select('tbl_order.*','tbl_customers.*','tbl_shipping.*','tbl_order_details.*')
+        ->orderby('tbl_order.order_id','desc')->where('tbl_order.order_id',$orderId)->get();
 
-        $manager_order_by_id  = view('admin.view_order')->with('order_by_id',$order_by_id);
+        $manager_order_by_id  = view('admin.view_order')->with('all_order',$all_order);
         return view('admin_layout')->with('admin.view_order', $manager_order_by_id);
         
     }
     public function login_checkout(){
 
-    	$cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get();
+        $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get();
         $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
         $all_slider = DB::table('tbl_slider')->orderby('slider_id','desc')->get();
 
 
-    	return view('pages.checkout.login_checkout')->with('category',$cate_product)->with('brand',$brand_product)->with('all_slider',$all_slider);
+        return view('pages.checkout.login_checkout')->with('category',$cate_product)->with('brand',$brand_product)->with('all_slider',$all_slider);
     }
     public function add_customer(Request $request){
 
-    	$data = array();
-    	$data['customer_name'] = $request->customer_name;
-    	$data['customer_phone'] = $request->customer_phone;
-    	$data['customer_email'] = $request->customer_email;
-    	$data['customer_password'] = md5($request->customer_password);
+        $data = array();
+        $data['customer_name'] = $request->customer_name;
+        $data['customer_phone'] = $request->customer_phone;
+        $data['customer_email'] = $request->customer_email;
+        $data['customer_password'] = md5($request->customer_password);
 
-    	$customer_id = DB::table('tbl_customers')->insertGetId($data);
+        $customer_id = DB::table('tbl_customers')->insertGetId($data);
 
-    	Session::put('customer_id',$customer_id);
-    	Session::put('customer_name',$request->customer_name);
-    	return Redirect::to('/checkout'); 
+        Session::put('customer_id',$customer_id);
+        Session::put('customer_name',$request->customer_name);
+        return Redirect::to('/checkout'); 
 
 
     }
     public function checkout(){
-    	$cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get();
+        $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get();
         $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
          $all_slider = DB::table('tbl_slider')->orderby('slider_id','desc')->get();
 
 
-    	return view('pages.checkout.show_checkout')->with('category',$cate_product)->with('brand',$brand_product)->with('all_slider',$all_slider);
+        return view('pages.checkout.show_checkout')->with('category',$cate_product)->with('brand',$brand_product)->with('all_slider',$all_slider);
     }
     public function save_checkout_customer(Request $request){
-    	$data = array();
-    	$data['shipping_name'] = $request->shipping_name;
-    	$data['shipping_phone'] = $request->shipping_phone;
-    	$data['shipping_email'] = $request->shipping_email;
-    	$data['shipping_notes'] = $request->shipping_notes;
-    	$data['shipping_address'] = $request->shipping_address;
+        $data = array();
+        $data['shipping_name'] = $request->shipping_name;
+        $data['shipping_phone'] = $request->shipping_phone;
+        $data['shipping_email'] = $request->shipping_email;
+        $data['shipping_notes'] = $request->shipping_notes;
+        $data['shipping_address'] = $request->shipping_address;
 
-    	$shipping_id = DB::table('tbl_shipping')->insertGetId($data);
+        $shipping_id = DB::table('tbl_shipping')->insertGetId($data);
 
-    	Session::put('shipping_id',$shipping_id);
-    	
-    	return Redirect::to('/payment');
+        Session::put('shipping_id',$shipping_id);
+        
+        return Redirect::to('/payment');
     }
     public function payment(){
 
@@ -93,22 +94,22 @@ class CheckoutController extends Controller
 
 
     public function logout_checkout(){
-    	Session::flush();
-    	return Redirect::to('/login-checkout');
+        Session::flush();
+        return Redirect::to('/login-checkout');
     }
 
     public function login_customer(Request $request){
-    	$email = $request->email_account;
-    	$password = md5($request->password_account);
-    	$result = DB::table('tbl_customers')->where('customer_email',$email)->where('customer_password',$password)->first();
-    	
-    	
-    	if($result){
-    		Session::put('customer_id',$result->customer_id);
-    		return Redirect::to('/checkout');
-    	}else{
-    		return Redirect::to('/login-checkout');
-    	}
+        $email = $request->email_account;
+        $password = md5($request->password_account);
+        $result = DB::table('tbl_customers')->where('customer_email',$email)->where('customer_password',$password)->first();
+        
+        
+        if($result){
+            Session::put('customer_id',$result->customer_id);
+            return Redirect::to('/checkout');
+        }else{
+            return Redirect::to('/login-checkout');
+        }
 
     }
 
@@ -165,7 +166,7 @@ class CheckoutController extends Controller
                 'user_total' => $value->order_total,
                 'product_name' => $value->product_name,
                 'order_status' => $value->order_status,
-                'count_product' => $value->product_name.' x '.$value->product_sales_quantity];
+                'count_product' => $value->product_name.' x '.$value->product_sales_quantity.' đôi'];
                 $user_order[] = $user_order_new;
 
             }
@@ -174,7 +175,6 @@ class CheckoutController extends Controller
         $manager_order  = view('admin.manage_order')->with('all_order',$user_order);
         return view('admin_layout')->with('admin.manage_order', $manager_order);
     }
-
     public function order_place(Request $request){
         //insert payment_method
      
@@ -202,11 +202,11 @@ class CheckoutController extends Controller
             $order_d_data['product_sales_quantity'] = $v_content->qty;
             DB::table('tbl_order_details')->insert($order_d_data);
         }
-        if($data['payment_method']==1){
+        if($data['payment_method']==2){
 
-            echo 'Thanh toán thẻ ATM';
+            return Redirect::to('/lienhe')->with('message', 'Bạn vui chuyển khoản cho chúng tôi! Chúng tôi sẽ liên hệ sớm nhất.');
 
-        }elseif($data['payment_method']==2){
+        }else{
             Cart::destroy();
 
             $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get();
@@ -214,9 +214,6 @@ class CheckoutController extends Controller
             $all_slider = DB::table('tbl_slider')->orderby('slider_id','desc')->get();
 
             return view('pages.checkout.handcash')->with('category',$cate_product)->with('brand',$brand_product)->with('all_slider',$all_slider);
-
-        }else{
-            echo 'Thẻ ghi nợ';
 
         }
         

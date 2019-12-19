@@ -43,7 +43,7 @@
               </label>
             </th>
             <th>Tên người đặt</th>
-            <th>Mặt hàng</th>
+            <th>Sản phẩm đã đặt</th>
             <th>Tổng giá tiền</th>
             <th>Tình trạng</th> 
             <th>nút xác nhan</th>
