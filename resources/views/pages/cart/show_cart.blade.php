@@ -70,7 +70,7 @@
 		<div class="total_area">
 			<ul>
 				<li>Tổng <span>{{Cart::total().' '.'vnđ'}}</span></li>
-				<li>Thuế <span>{{Cart::tax().' '.'vnđ'}}</span></li>
+				<!-- <li>Thuế <span>{{Cart::tax().' '.'vnđ'}}</span></li> -->
 				<li>Phí vận chuyển <span>Free</span></li>
 				<li>Thành tiền <span>{{Cart::total().' '.'vnđ'}}</span></li>
 			</ul>
