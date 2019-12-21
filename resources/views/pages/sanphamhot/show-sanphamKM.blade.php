@@ -11,8 +11,6 @@
     </div>
     <div class="col-sm-7">
         <div class="product-information">
-            <!--/product-information-->
-            <img src="images/product-details/new.jpg" class="newarrival" alt="" />
             <h2>{{$value->khuyenmai_name}}</h2>
             <p>Mã ID: {{$value->khuyenmai_id}}</p>
             <img src="images/product-details/rating.png" alt="" />

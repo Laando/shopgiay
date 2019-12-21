@@ -169,29 +169,15 @@
                         </ol> --}}
                         
                         <div class="carousel-inner">
-                            {{-- <div class="item active">
-                                <div class="col-sm-6">
-                                    <h1><span>KShop</span>Store Giày uy tín nhất Việt Nam</h1>
-                                    <h2>Free ship toàn quốc với hóa đơn 2.000.000VNĐ</h2>
-                                    <p>Chất lượng Tiki đảm bảo chất lượng cho tất cả sản phẩm bán tại KShop bằng chính sách bảo hành vĩnh viễn..
-                                     </p>
-                                    <button type="button" class="btn btn-default get">Nào cùng mua sắm</button>
-                                </div>
-                                <div class="col-sm-6">
-                                    <img src="{{('public/frontend/images/girl1.jpg')}}" class="girl img-responsive" alt="" />
-                                    <img src="{{('public/frontend/images/pricing.png')}}"  class="pricing" alt="" />
-
-                                </div>
-                            </div> --}}
                        
                            
                             @foreach($all_slider as $key => $slider)
                             <div class="item">
                                 <div class="col-sm-6">
-                                    <h1><span>KShop-</span>Store Giày uy tín nhất Việt Nam</h1>
+                                    <h1><span>LCNShop-</span>Store Giày uy tín nhất Việt Nam</h1>
                                     <h2>{{$slider->slider_tieude}}</h2>
-                                    <p>{{$slider->slider_noidung}} </p>
-                                    <button type="button" class="btn btn-default get"><a href="{{URL::to('/chi-tiet-san-pham/'.$slider->slider_chenlinkSP)}}">Xem Thêm</a></button>
+                                    <p>{!!$slider->slider_noidung!!} </p>
+                                    <!-- <button type="button" class="btn btn-default get"><a href="{{URL::to('/chi-tiet-san-pham/'.$slider->slider_chenlinkSP)}}">Xem Thêm</a></button> -->
                                 </div>
                                 <div class="col-sm-6">
                                     <!-- <img src="{{('public/frontend/images/girl1.jpg')}}" class="girl img-responsive" alt="" />
