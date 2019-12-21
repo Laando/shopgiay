@@ -1,7 +1,7 @@
 <header class="header fixed-top clearfix">
     <!--logo start-->
     <div class="brand">
-        <a href="index.html" class="logo">
+        <a href="/dashboard" class="logo">
             ADMIN
         </a>
         <div class="sidebar-toggle-box">
