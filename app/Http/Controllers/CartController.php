@@ -41,7 +41,7 @@ class CartController extends Controller
                 Cart::add($data);
                  
         }
-       return Redirect::to('/show-cart');
+       return Redirect::to('/');
         // Cart::destroy();
        
        
